@@ -22,7 +22,7 @@
 </div>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-info sticky-top">
-  <a class="navbar-brand" href="#"><i class="fas fa-home"></i>Inicio</a>
+  <a class="navbar-brand" href="#"><i class="fas fa-home"></i> Inicio</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -30,40 +30,45 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"><i class="fab fa-buffer"></i>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"><i class="fab fa-buffer"></i> 
           Movimientos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#"><i class="fas fa-cart-plus"></i>Compras</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-cart-plus"></i> Compras</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fas fa-truck"></i>Ventas</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-truck"></i> Ventas</a>
         </div>
       </li>
        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"><i class="fas fa-box-open"></i>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"><i class="fas fa-box-open"></i> 
           Inventario
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#"><i class="fas fa-barcode"></i>Productos</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-barcode"></i> Productos</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fab fa-stack-overflow"></i>Categorias</a>
+          <a class="dropdown-item" href="#"><i class="fab fa-stack-overflow"></i> Categorias</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Reportes</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"><i class="far fa-folder-open"></i> Reportes</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#"><i class="far fa-file"></i></i> Reporte Compras</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"><i class="far fa-file"></i> Reporte Ventas</a>
+        </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"><i class="fas fa-user"></i>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"><i class="fas fa-user"></i> 
           Personas
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#"><i class="fas fa-user"></i>Clientes</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Clientes</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fas fa-user"></i>Proveedores</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Proveedores</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-danger" href="#"><i class="fas fa-sign-out-alt"></i>Salir</a>
+        <a class="nav-link text-danger" href="#"><i class="fas fa-sign-out-alt"></i> Salir</a>
       </li>
     </ul>
   </div>
