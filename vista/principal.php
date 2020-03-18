@@ -9,7 +9,7 @@
 <script src="https://kit.fontawesome.com/7e73ebaf62.js" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="icon" type="image/png" href="img/logo.png" style="max-width:100%;width:100px;height:auto; text-align:left;" />
-	<title> servimedi </title>
+	<title> Servimedi | Sistema Ventas </title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
   
 </head>

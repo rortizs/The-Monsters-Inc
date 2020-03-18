@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Inicio</title>
+    <title> Servimedi | Sistema Ventas </title>
     <link rel="stylesheet" href="css/stylelog.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
     <link rel="icon" type="image/png" href="img/logo.png" style="max-width:100%;width:100px;height:auto; text-align:left;" />
