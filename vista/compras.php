@@ -190,13 +190,35 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modalok"><i class="far fa-save"></i> Guardar</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
       </div>
     </div>
   </div>
 </div>
 <!-- area para colocar nuevo codigo -->
+
+<!-- modal Mensaje Confirmacion -->
+
+<div class="modal fade" id="Modalok" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+      </div>
+      <div class="modal-body">
+        <center>
+        <img src="img/docok.png" height="250px" width="200px">
+        <h1 class="text-dark">Compra Realizada con Exito</h1>
+        </center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>
