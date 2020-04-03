@@ -228,7 +228,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark"><i class="fas fa-truck"></i> Ventas</h1>
+            <h1 class="m-0 text-dark"><i class="fas fa-truck"></i> Facturacion</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -241,73 +241,77 @@
     </div>
 
 
+      
+<div class="w-100 p-3" style="background-color: #eee;">
+  <label>NUEVA VENTA</label>
+  <div class="w-25 p-3 float-left" style="background-color: #eee;">
+        <div class="input-group">
+          <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+                <input type="text" aria-label="nombreuser" class="form-control" placeholder="Usuario" disabled="true">
+        </div>
+    
+          <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option selected>Cliente</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+          </div>
+  </div>
 
- 
-<!-- Codigo tabla y boton para modal -->
-<section class="content">
-  <div class="box box-dodgerblue">
-    <div class="box-header with-border">
-      <button class="btn btn-success" data-toggle="modal" data-target="#modalCompra">
-          <i class="fas fa-plus"></i> Nueva Compra
-      </button>
-      <hr>     
-    </div>
-    <div class="box-body">
+  <div class="w-75 p-3 float-right" style="background-color: #eee;"> 
+    Productos
+  <button>Realizar venta</button>
+  </div>
+
+</div> 
+<br>
+<br>
+<div class="box-body">
      <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
       <thead>
        <tr>
          <th style="width:5px">No.</th>
-         <th style="text-align: center">Cod. Proveedor</th>
-         <th style="text-align: center">Nombre Proveedor</th>
-         <th style="text-align: center">Total Compra</th>
+         <th style="text-align: center">Nombre</th>
+         <th style="text-align: center">Apellido</th>
+         <th style="text-align: center">Direccion</th>
+         <th style="text-align: center">Fecha Nacimiento</th>
          <th style="text-align: center">Usuario</th>
+         <th style="text-align: center">Password</th>
+         <th style="text-align: center">Permisos</th>
+         <th style="text-align: center;width:10px">Editar</th>
          <th style="text-align: center; width:10px">Estado</th>
+         
        </tr> 
       </thead>
       <tbody style="text-align: center">
       <tr>
                   <td style="text-align: center">1</td>
-                  <td>0001</td>
-                  <td>Mynor Velasquez</td>
-                  <td>0.00</td>
-                  <td>user</td>
+                  <td>Juan</td>
+                  <td>perez</td>
+                  <td>guatemala</td>
+                  <td>01/01/2020</td>
+                  <td>userjuan</td>
+                  <td>12345</td>
+                  <td>12345</td>
+                  <td>
+                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
+                  </td>
                   <td>
                     <div class="btn-group">  
                       <button class="btn btn-success btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-check"></i></button>
                       <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
                   </td>
+                      
                 </tr>   
       </tbody>
      </table>
     </div>
-  </div>
-</section>
-
-
-<!-- Modal Agregar Compra -->
-<div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg bg-info">
-        <img src="../files/dist/img/comlogo.png" heigth="105px" width="400px">
-        
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar Cambios</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-
+      
 
             
             <!-- /.card -->

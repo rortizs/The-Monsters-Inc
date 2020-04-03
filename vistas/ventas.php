@@ -242,14 +242,15 @@
 
 
 
- 
 <!-- Codigo tabla y boton para modal -->
 <section class="content">
   <div class="box box-dodgerblue">
     <div class="box-header with-border">
-      <button class="btn btn-success" data-toggle="modal" data-target="#modalCompra">
-          <i class="fas fa-plus"></i> Nueva Compra
-      </button>
+      <form action="facturacion.php">
+ <button class="btn btn-success">
+          <i class="fas fa-plus"></i> Realizar Venta
+ </button>
+ </form>
       <hr>     
     </div>
     <div class="box-body">
@@ -284,28 +285,6 @@
 </section>
 
 
-<!-- Modal Agregar Compra -->
-<div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg bg-info">
-        <img src="../files/dist/img/comlogo.png" heigth="105px" width="400px">
-        
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar Cambios</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
