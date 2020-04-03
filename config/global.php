@@ -2,7 +2,7 @@
 
 define("DB_HOST", "localhost");
 
-define("DB_NAME", "dbsistema");
+define("DB_NAME", "servimedi");
 
 define("DB_USERNAME", "root");
 

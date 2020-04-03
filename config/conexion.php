@@ -6,7 +6,7 @@ require_once "../config/global.php";
 $conexion = new mysqli(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_NAME);
 
 
-mysqli_query($conexion, 'SET NAME "'.DB_ENCODE.'"');
+/*mysqli_query($conexion, 'SET NAME "'.DB_ENCODE.'"');*/
 
 
 if(mysqli_connect_errno()){
