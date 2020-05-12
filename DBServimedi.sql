@@ -1,290 +1,360 @@
--- MySQL Workbench Forward Engineering
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-05-2020 a las 05:54:14
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.4
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema servimedi
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema servimedi
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `servimedi` DEFAULT CHARACTER SET utf8 ;
-USE `servimedi` ;
-
--- -----------------------------------------------------
--- Table `servimedi`.`Cargo`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Cargo` (
-  `idCargo` INT NOT NULL AUTO_INCREMENT,
-  `nombreCargo` VARCHAR(45) NOT NULL,
-  `descripcionCargo` TEXT NULL,
-  PRIMARY KEY (`idCargo`))
-ENGINE = InnoDB;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Table `servimedi`.`Permiso`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Permiso` (
-  `idPermiso` INT NOT NULL AUTO_INCREMENT,
-  `nombrePermiso` VARCHAR(45) NOT NULL,
-  `descripcionPermiso` TEXT NULL,
-  PRIMARY KEY (`idPermiso`))
-ENGINE = InnoDB;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Base de datos: `dbservimedi`
+--
 
--- -----------------------------------------------------
--- Table `servimedi`.`Perfil`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Perfil` (
-  `idPerfil` INT NOT NULL,
-  `permisoPerfil` INT NOT NULL,
-  `nombrePerfil` VARCHAR(45) NOT NULL,
-  `passwordPerfil` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idPerfil`),
-  INDEX `PrimeraRelacion_idx` (`permisoPerfil` ASC),
-  CONSTRAINT `FK_Permiso_Perfil`
-    FOREIGN KEY (`permisoPerfil`)
-    REFERENCES `servimedi`.`Permiso` (`idPermiso`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `categoria`
+--
 
--- -----------------------------------------------------
--- Table `servimedi`.`Estado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Estado` (
-  `idEstado` INT NOT NULL AUTO_INCREMENT,
-  `nombreEstado` VARCHAR(45) NOT NULL,
-  `descripcionEstado` TEXT NULL,
-  PRIMARY KEY (`idEstado`))
-ENGINE = InnoDB;
+CREATE TABLE `categoria` (
+  `idcategoria` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(256) DEFAULT NULL,
+  `estado` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `servimedi`.`Usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Usuario` (
-  `idUsuario` INT NOT NULL,
-  `cargoUsuario` INT NOT NULL,
-  `perfilUsuario` INT NOT NULL,
-  `nombreUsuario` VARCHAR(45) NOT NULL,
-  `apellidoUsuario` VARCHAR(45) NOT NULL,
-  `direccionUsuario` TEXT NULL,
-  `fechaNacimientoUsuario` DATE NOT NULL,
-  `estadoUsuario` INT NOT NULL,
-  `correoUsuario` VARCHAR(45) NULL,
-  `telefonoUsuario` VARCHAR(15) NULL,
-  PRIMARY KEY (`idUsuario`),
-  INDEX `idCargo_idx` (`cargoUsuario` ASC),
-  INDEX `idPerfil_idx` (`perfilUsuario` ASC),
-  INDEX `idEstado_idx` (`estadoUsuario` ASC),
-  CONSTRAINT `FK_Cargo_Usuario`
-    FOREIGN KEY (`cargoUsuario`)
-    REFERENCES `servimedi`.`Cargo` (`idCargo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Perfil_Usuario`
-    FOREIGN KEY (`perfilUsuario`)
-    REFERENCES `servimedi`.`Perfil` (`idPerfil`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Estado_Usuario`
-    FOREIGN KEY (`estadoUsuario`)
-    REFERENCES `servimedi`.`Estado` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+--
+-- Estructura de tabla para la tabla `cliente`
+--
 
+CREATE TABLE `cliente` (
+  `idcliente` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `nit` varchar(20) DEFAULT NULL,
+  `direccion` varchar(70) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `servimedi`.`Cliente`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Cliente` (
-  `idCliente` INT NOT NULL AUTO_INCREMENT,
-  `nitCliente` INT(8) NOT NULL,
-  `nombreCliente` VARCHAR(45) NOT NULL,
-  `direccionCliente` TEXT NULL,
-  `estadoCliente` INT NOT NULL,
-  `telefonoCliente` VARCHAR(15) NULL,
-  PRIMARY KEY (`idCliente`),
-  INDEX `idEstado_idx` (`estadoCliente` ASC),
-  CONSTRAINT `FK_Estado_Cliente`
-    FOREIGN KEY (`estadoCliente`)
-    REFERENCES `servimedi`.`Estado` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `compra`
+--
 
--- -----------------------------------------------------
--- Table `servimedi`.`Venta`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Venta` (
-  `idVenta` INT NOT NULL AUTO_INCREMENT,
-  `clienteVenta` INT NOT NULL,
-  `usuarioVenta` INT NOT NULL,
-  `totalVenta` DECIMAL(10,2) NOT NULL,
-  `fechaVenta` DATETIME NOT NULL,
-  PRIMARY KEY (`idVenta`),
-  INDEX `idCliente_idx` (`clienteVenta` ASC),
-  INDEX `idUsuario_idx` (`usuarioVenta` ASC),
-  CONSTRAINT `FK_Cliente_Venta`
-    FOREIGN KEY (`clienteVenta`)
-    REFERENCES `servimedi`.`Cliente` (`idCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Usuario_Venta`
-    FOREIGN KEY (`usuarioVenta`)
-    REFERENCES `servimedi`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `compra` (
+  `idcompra` int(11) NOT NULL,
+  `idproveedor` int(11) NOT NULL,
+  `idusuario` int(11) NOT NULL,
+  `num_comprobante` varchar(20) DEFAULT NULL,
+  `fecha` datetime NOT NULL,
+  `total` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `servimedi`.`Proveedor`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Proveedor` (
-  `idProveedor` INT NOT NULL AUTO_INCREMENT,
-  `casaComercialProveedor` VARCHAR(45) NOT NULL,
-  `nombreVendedor` VARCHAR(45) NOT NULL,
-  `telefonoProveedor` VARCHAR(15) NULL,
-  `estadoProveedor` INT NOT NULL,
-  PRIMARY KEY (`idProveedor`),
-  INDEX `idEstado_idx` (`estadoProveedor` ASC),
-  CONSTRAINT `FK_Estado_Proveedor`
-    FOREIGN KEY (`estadoProveedor`)
-    REFERENCES `servimedi`.`Estado` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+--
+-- Estructura de tabla para la tabla `detalle_compra`
+--
 
+CREATE TABLE `detalle_compra` (
+  `iddetalle_compra` int(11) NOT NULL,
+  `idcompra` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `servimedi`.`Categoria`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Categoria` (
-  `idCategoria` INT NOT NULL AUTO_INCREMENT,
-  `nombreCategoria` VARCHAR(45) NOT NULL,
-  `descripcionCategoria` TEXT NULL,
-  PRIMARY KEY (`idCategoria`))
-ENGINE = InnoDB;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `detalle_venta`
+--
 
--- -----------------------------------------------------
--- Table `servimedi`.`Producto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Producto` (
-  `idProducto` INT NOT NULL AUTO_INCREMENT,
-  `categoriaProducto` INT NOT NULL,
-  `proveedorProducto` INT NOT NULL,
-  `nombreProducto` VARCHAR(45) NOT NULL,
-  `descripcionProducto` TEXT NULL,
-  `precioCompraProducto` DECIMAL(10,2) NOT NULL,
-  `precioVentaProducto` DECIMAL(10,2) NOT NULL,
-  `stockProducto` INT NOT NULL,
-  `estadoProducto` INT NOT NULL,
-  `fechaVenceProducto` DATE NOT NULL,
-  PRIMARY KEY (`idProducto`),
-  INDEX `idEstado_idx` (`estadoProducto` ASC),
-  INDEX `idProveedor_idx` (`proveedorProducto` ASC),
-  INDEX `idCategoria_idx` (`categoriaProducto` ASC),
-  CONSTRAINT `FK_Estado_Producto`
-    FOREIGN KEY (`estadoProducto`)
-    REFERENCES `servimedi`.`Estado` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Proveedor_Producto`
-    FOREIGN KEY (`proveedorProducto`)
-    REFERENCES `servimedi`.`Proveedor` (`idProveedor`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Categoria_Producto`
-    FOREIGN KEY (`categoriaProducto`)
-    REFERENCES `servimedi`.`Categoria` (`idCategoria`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `detalle_venta` (
+  `iddetalle_venta` int(11) NOT NULL,
+  `idventa` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` decimal(11,2) NOT NULL,
+  `descuento` decimal(11,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `servimedi`.`DetalleVenta`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`DetalleVenta` (
-  `idDetalleVenta` INT NOT NULL AUTO_INCREMENT,
-  `productoDVenta` INT NOT NULL,
-  `precioUnidadDVenta` DECIMAL(10,2) NOT NULL,
-  `cantidadDVenta` INT NOT NULL,
-  `descuentoVenta` VARCHAR(45) NULL,
-  PRIMARY KEY (`idDetalleVenta`, `productoDVenta`),
-  INDEX `idProducto_idx` (`productoDVenta` ASC),
-  CONSTRAINT `FK_Producto_DVenta`
-    FOREIGN KEY (`productoDVenta`)
-    REFERENCES `servimedi`.`Producto` (`idProducto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Venta_DVenta`
-    FOREIGN KEY (`idDetalleVenta`)
-    REFERENCES `servimedi`.`Venta` (`idVenta`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+--
+-- Estructura de tabla para la tabla `producto`
+--
 
+CREATE TABLE `producto` (
+  `idproducto` int(11) NOT NULL,
+  `idcategoria` int(11) NOT NULL,
+  `codigo` varchar(50) DEFAULT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `precio_venta` decimal(11,2) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `descripcion` varchar(256) DEFAULT NULL,
+  `estado` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `servimedi`.`Compra`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`Compra` (
-  `idCompra` INT NOT NULL AUTO_INCREMENT,
-  `proveedorCompra` INT NOT NULL,
-  `usuarioCompra` INT NOT NULL,
-  `totalCompra` DECIMAL(10,2) NOT NULL,
-  `fechaCompra` DATETIME NOT NULL,
-  PRIMARY KEY (`idCompra`),
-  INDEX `idProveedor_idx` (`proveedorCompra` ASC),
-  INDEX `idUsuario_idx` (`usuarioCompra` ASC),
-  CONSTRAINT `FK_Proveedor_Compra`
-    FOREIGN KEY (`proveedorCompra`)
-    REFERENCES `servimedi`.`Proveedor` (`idProveedor`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Usuario_Compra`
-    FOREIGN KEY (`usuarioCompra`)
-    REFERENCES `servimedi`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `proveedor`
+--
 
--- -----------------------------------------------------
--- Table `servimedi`.`DetalleCompra`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `servimedi`.`DetalleCompra` (
-  `idDetalleCompra` INT NOT NULL AUTO_INCREMENT,
-  `productoDCompra` INT NOT NULL,
-  `precioUnidadDVenta` DECIMAL(10,2) NOT NULL,
-  `cantidadDCompra` INT NOT NULL,
-  `descuentoDCompra` VARCHAR(45) NULL,
-  PRIMARY KEY (`idDetalleCompra`, `productoDCompra`),
-  INDEX `idProducto_idx` (`productoDCompra` ASC),
-  CONSTRAINT `FK_Compra_DCompra`
-    FOREIGN KEY (`idDetalleCompra`)
-    REFERENCES `servimedi`.`Compra` (`idCompra`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Producto_DCompra`
-    FOREIGN KEY (`productoDCompra`)
-    REFERENCES `servimedi`.`Producto` (`idProducto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `proveedor` (
+  `idproveedor` int(11) NOT NULL,
+  `casa_comercial` varchar(100) NOT NULL,
+  `nombreVendedor` varchar(100) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `estado` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE `rol` (
+  `idrol` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `estado` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `idusuario` int(11) NOT NULL,
+  `idrol` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
+  `correo` varchar(150) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `estado` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `venta`
+--
+
+CREATE TABLE `venta` (
+  `idventa` int(11) NOT NULL,
+  `idcliente` int(11) NOT NULL,
+  `idusuario` int(11) NOT NULL,
+  `num_comprobante` varchar(10) NOT NULL,
+  `fecha_hora` datetime NOT NULL,
+  `total` decimal(11,2) NOT NULL,
+  `estado` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`idcategoria`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indices de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`idcliente`);
+
+--
+-- Indices de la tabla `compra`
+--
+ALTER TABLE `compra`
+  ADD PRIMARY KEY (`idcompra`),
+  ADD KEY `idproveedor` (`idproveedor`),
+  ADD KEY `idusuario` (`idusuario`);
+
+--
+-- Indices de la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  ADD PRIMARY KEY (`iddetalle_compra`),
+  ADD KEY `idcompra` (`idcompra`),
+  ADD KEY `idproducto` (`idproducto`);
+
+--
+-- Indices de la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  ADD PRIMARY KEY (`iddetalle_venta`),
+  ADD KEY `idventa` (`idventa`),
+  ADD KEY `idproducto` (`idproducto`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`idproducto`),
+  ADD UNIQUE KEY `nombre` (`nombre`),
+  ADD KEY `idcategoria` (`idcategoria`);
+
+--
+-- Indices de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`idproveedor`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`idrol`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`idusuario`),
+  ADD KEY `idrol` (`idrol`);
+
+--
+-- Indices de la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD PRIMARY KEY (`idventa`),
+  ADD KEY `idcliente` (`idcliente`),
+  ADD KEY `idusuario` (`idusuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `compra`
+--
+ALTER TABLE `compra`
+  MODIFY `idcompra` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  MODIFY `iddetalle_compra` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  MODIFY `iddetalle_venta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  MODIFY `idproveedor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `idrol` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `venta`
+--
+ALTER TABLE `venta`
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `compra`
+--
+ALTER TABLE `compra`
+  ADD CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`idproveedor`) REFERENCES `proveedor` (`idproveedor`),
+  ADD CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
+
+--
+-- Filtros para la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  ADD CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`idcompra`) REFERENCES `compra` (`idcompra`) ON DELETE CASCADE,
+  ADD CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`);
+
+--
+-- Filtros para la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  ADD CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`idventa`) REFERENCES `venta` (`idventa`) ON DELETE CASCADE,
+  ADD CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`);
+
+--
+-- Filtros para la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`);
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`);
+
+--
+-- Filtros para la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`idcliente`),
+  ADD CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
