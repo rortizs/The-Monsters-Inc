@@ -1,6 +1,6 @@
 <?php
 
-define("DB_HOST", "localhost:3306");
+define("DB_HOST", "69.46.6.238:3306");
 
 define("DB_NAME", "tcsogt_dbServimedi");
 
