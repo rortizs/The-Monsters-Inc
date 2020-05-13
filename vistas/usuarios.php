@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -256,31 +257,46 @@
      <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
       <thead>
        <tr>
-         <th style="width:5px">No.</th>
+          <th style="width:5px">No.</th>
          <th style="text-align: center">Nombre</th>
-         <th style="text-align: center">Apellido</th>
+         <th style="text-align: center">Telefono</th>
          <th style="text-align: center">Direccion</th>
-         <th style="text-align: center">Fecha Nacimiento</th>
-         <th style="text-align: center">Usuario</th>
-         <th style="text-align: center">Password</th>
-         <th style="text-align: center">Permisos</th>
+         <th style="text-align: center">Correo</th>
+          <th style="text-align: center">Estado</th>
+           <th style="text-align: center">Rol</th>
          <th style="text-align: center;width:10px">Editar</th>
          <th style="text-align: center; width:10px">Estado</th>
          
        </tr> 
       </thead>
       <tbody style="text-align: center">
+        
+        <?php
+
+        require_once ("../modelos/mostrarusuario.php");
+
+        foreach($query as $row){
+
+       $est= $row['estado'];
+
+       if($est == 1){
+
+        $nom = 'Activo';
+       }else
+
+        $nom = 'Inactivo';
+
+      ?>
       <tr>
-                  <td style="text-align: center">1</td>
-                  <td>Juan</td>
-                  <td>perez</td>
-                  <td>guatemala</td>
-                  <td>01/01/2020</td>
-                  <td>userjuan</td>
-                  <td>12345</td>
-                  <td>12345</td>
+                  <td><?php echo $row['idusuario']?></td>
+                  <td><?php echo $row['nombre']?></td>
+                  <td><?php echo $row['telefono']?></td>
+                  <td><?php echo $row['direccion']?></td>
+                 <td><?php echo $row['correo']?></td>
+                  <td><?php echo $nom ?></td>
+                   <td><?php echo $row['nombrer']?></td>
                   <td>
-                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
+                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#modalModiCliente" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
                   <td>
                     <div class="btn-group">  
@@ -288,7 +304,15 @@
                       <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
                   </td>
                       
-                </tr>   
+                </tr> 
+                <?php
+                }
+                ?>  
+
+
+
+
+
       </tbody>
      </table>
     </div>
@@ -300,6 +324,7 @@
 <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <form action="../modelos/agregaruser.php" method="post">
       <div class="modal-header bg bg-info">
         <img src="../files/dist/img/userlogo.png" heigth="105px" width="400px">
         
@@ -311,74 +336,61 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
-                <input type="text" aria-label="nombreuser" class="form-control" placeholder="Nombre">
-                <input type="text" aria-label="apellidouser" class="form-control" placeholder="Apellido">
+                <input type="text" aria-label="nombreuser" class="form-control" placeholder="Nombre" name="nombre">
+               
+            </div>
+            <br>
+             <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+            </div>
+                <input type="text" aria-label="nombreuser" class="form-control" placeholder="Numero de telefono" name="telefono">
+               
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Direccion" aria-label="direccionuser" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Direccion" aria-label="direccionuser" aria-describedby="addon-wrapping" name="direccion">
             </div>
+            <br>
+
+
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-edit"></i></span>
+                </div>
+                <select class="custom-select"  id="inputGroupSelect01" name="rol">
+               
+               <?php
+               require_once ("../config/conexion.php");
+
+                      $result=mysqli_query($conexion,"SELECT idrol, nombrer FROM rol");
+                      while($dato = mysqli_fetch_array($result)){
+                      ?> 
+                            <option value="<?php echo $dato['idrol'];?>"> <?php echo $dato['nombrer'] ?></option>
+                     <?php
+                }
+                ?>  
+                </select>
+            </div>
+            
+
+
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-alt"></i></span>
+                    <span class="input-group-text" id="addon-wrapping"><i >@</i></span>
                 </div>
-                <input type="date" class="form-control" placeholder="Fecha de Nacimiento" aria-label="nitcliente" aria-describedby="addon-wrapping">
-            </div>
-            <br>
-            <div class="input-group flex-nowrap">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user"></i></span>
-                </div>
-                <input type="text" class="form-control" placeholder="Usuario" aria-label="user" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Correo" aria-label="user" aria-describedby="addon-wrapping" name="correo">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-key"></i></span>
                 </div>
-                <input type="password" class="form-control" placeholder="Contraseña" aria-label="pass" aria-describedby="addon-wrapping">
+                <input type="password" class="form-control" placeholder="Contraseña" aria-label="pass" aria-describedby="addon-wrapping" name="pass">
             </div>
-            <br>
-            <h6>Permisos</h6>
-            <hr>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox9">Usuarios</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Compras</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">Ventas</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox3">Productos</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox4">Categorias</label>
-            </div>
-            <br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox5">Clientes</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox6">Proveedores</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox7">Reporte Ventas</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox8">Reporte Compras</label>
-            </div>
+           
+
             
 
       </div>
@@ -387,6 +399,7 @@
         <button type="button" class="btn btn-outline-danger pull-left" data-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
