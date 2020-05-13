@@ -1,0 +1,103 @@
+create table categoria(
+       idcategoria integer primary key AUTO_INCREMENT,
+       nombre varchar(50) not null,
+       descripcion varchar(256) null,
+       estado bit(1)
+);
+
+create table producto(
+       idproducto integer primary key AUTO_INCREMENT,
+       idcategoria integer not null,
+       codigo varchar(50) null,
+       nombre varchar(100) not null unique,
+       precio_venta decimal(11,2) not null,
+       stock integer not null,
+       descripcion varchar(256) null,
+       estado bit(1),
+       FOREIGN KEY (idcategoria) REFERENCES categoria(idcategoria)
+);
+
+create table cliente(
+       idcliente integer primary key AUTO_INCREMENT,
+       nombre varchar(100) not null,
+       nit varchar(20) null,
+       direccion varchar(70) null,
+       telefono varchar(20) null
+	
+);
+
+create table proveedor(
+  idproveedor integer primary key AUTO_INCREMENT,
+  casa_comercial varchar(100) NOT NULL,
+  nombreVendedor varchar(100) NOT NULL,
+  telefono varchar(20) DEFAULT NULL,
+  estado bit(1)NULL
+);
+
+
+
+create table rol(
+       idrol integer primary key AUTO_INCREMENT,
+       nombre varchar(30) not null,
+       descripcion varchar(100) null,
+       estado bit(1)
+);
+
+create table usuario(
+       idusuario integer primary key AUTO_INCREMENT,
+       idrol integer not null,
+       nombre varchar(100) not null,
+       direccion varchar(70) null,
+       telefono varchar(20) null,
+       corre varchar(255) not null,
+       password varchar(255) not null,
+       estado bit(1),
+       FOREIGN KEY (idrol) REFERENCES rol (idrol)
+);
+
+
+create table compra(
+       idcompra integer primary key AUTO_INCREMENT,
+       idproveedor integer not null,
+       idusuario integer not null,
+       num_comprobante varchar (10) not null,
+       fecha datetime not null,
+       total decimal (11,2) not null,
+       FOREIGN KEY (idproveedor) REFERENCES proveedor (idproveedor),
+       FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+);
+
+
+create table detalle_compra(
+       iddetalle_compra integer primary key AUTO_INCREMENT,
+       idcompra integer not null primary key,
+       idproducto integer not null,
+       cantidad integer not null,
+       precio decimal(11,2) not null,
+       FOREIGN KEY (idcompra) REFERENCES compra (idcompra) ON DELETE CASCADE,
+       FOREIGN KEY (idproducto) REFERENCES producto (idproducto)
+);
+
+
+create table venta(
+       idventa integer primary key AUTO_INCREMENT,
+       idcliente integer not null,
+       idusuario integer not null,
+       num_comprobante varchar (10) not null,
+       fecha_hora datetime not null,
+       total decimal (11,2) not null,
+       estado varchar(20) not null,
+       FOREIGN KEY (idcliente) REFERENCES cliente (idcliente),
+       FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+);
+
+create table detalle_venta(
+       iddetalle_venta integer primary key AUTO_INCREMENT,
+       idventa integer not null PRIMARY KEY,
+       idproducto integer not null,
+       cantidad integer not null,
+       precio decimal(11,2) not null,
+       descuento decimal(11,2) not null,
+       FOREIGN KEY (idventa) REFERENCES venta (idventa) ON DELETE CASCADE,
+       FOREIGN KEY (idproducto) REFERENCES producto (idproducto)
+);
