@@ -272,34 +272,89 @@
 <br>
 <br>
 <div class="box-body">
+  <?php 
+    if(!isset($_SESSION["carrito"])) $_SESSION["carrito"] = [];
+    $granTotal = 0;
+  ?>
+  <?php
+      if(isset($_GET["status"])){
+        if($_GET["status"] === "1"){
+          ?>
+            <div class="alert alert-success">
+              <strong>¡Correcto!</strong> Venta realizada correctamente
+            </div>
+          <?php
+        }else if($_GET["status"] === "2"){
+          ?>
+          <div class="alert alert-info">
+              <strong>Venta cancelada</strong>
+            </div>
+          <?php
+        }else if($_GET["status"] === "3"){
+          ?>
+          <div class="alert alert-info">
+              <strong>Ok</strong> Producto quitado de la lista
+            </div>
+          <?php
+        }else if($_GET["status"] === "4"){
+          ?>
+          <div class="alert alert-warning">
+              <strong>Error:</strong> El producto que buscas no existe
+            </div>
+          <?php
+        }else if($_GET["status"] === "5"){
+          ?>
+          <div class="alert alert-danger">
+              <strong>Error: </strong>El producto está agotado
+            </div>
+          <?php
+        }else{
+          ?>
+          <div class="alert alert-danger">
+              <strong>Error:</strong> Algo salió mal mientras se realizaba la venta
+            </div>
+          <?php
+        }
+      }
+    ?>
+  <br>
+    <form method="post" action="../modelos/agregarAlCarrito.php">
+      <label for="codigo">Código de barras:</label>
+      <input autocomplete="off" autofocus class="form-control" name="codigo" required type="text" id="codigo" placeholder="Escribe el código">
+    </form>
+    <br><br>
      <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
       <thead>
        <tr>
-         <th style="width:5px">No.</th>
+         <th style="text-align: center">ID Producto</th>
+         <th style="text-align: center">Codigo</th>
          <th style="text-align: center">Nombre</th>
-         <th style="text-align: center">Apellido</th>
-         <th style="text-align: center">Direccion</th>
-         <th style="text-align: center">Fecha Nacimiento</th>
-         <th style="text-align: center">Usuario</th>
-         <th style="text-align: center">Password</th>
-         <th style="text-align: center">Permisos</th>
+         <th style="text-align: center">Precio de Venta</th>
+         <th style="text-align: center">Cantidad</th>
+         <th style="text-align: center">Description</th>
          <th style="text-align: center;width:10px">Editar</th>
          <th style="text-align: center; width:10px">Estado</th>
          
        </tr> 
       </thead>
       <tbody style="text-align: center">
+
+        <?php
+
+        require_once ("../modelos/consultaProducto.php");
+
+        foreach($query as $row){
+          $granTotal += $row['precio_venta'];
+      ?>
       <tr>
-                  <td style="text-align: center">1</td>
-                  <td>Juan</td>
-                  <td>perez</td>
-                  <td>guatemala</td>
-                  <td>01/01/2020</td>
-                  <td>userjuan</td>
-                  <td>12345</td>
-                  <td>12345</td>
+                  <td><?php echo $row['idproducto']?></td>
+                  <td><?php echo $row['codigo']?></td>
+                  <td><?php echo $row['nombre']?></td>
+                  <td><?php echo $row['precio_venta']?></td>
+                 <td><?php echo $row['stock']?></td>
+                 <td><?php echo $row['descripcion']?></td>
                   <td>
-                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
+                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#modalModiCliente" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
                   <td>
                     <div class="btn-group">  
@@ -307,9 +362,18 @@
                       <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
                   </td>
                       
-                </tr>   
+                </tr> 
+                <?php
+                }
+                ?>
       </tbody>
      </table>
+  <h3>Total: <?php echo $granTotal; ?></h3>
+    <form action="./terminarVenta.php" method="POST">
+      <input name="total" type="hidden" value="<?php echo $granTotal;?>">
+      <button type="submit" class="btn btn-success">Terminar venta</button>
+      <a href="./cancelarVenta.php" class="btn btn-danger">Cancelar venta</a>
+    </form>
     </div>
       
 
