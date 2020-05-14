@@ -1,3 +1,8 @@
+  <?php
+    session_start();
+    if(!isset($_SESSION["carrito"])) $_SESSION["carrito"] = [];
+    $granTotal = 0;
+  ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -272,10 +277,7 @@
 <br>
 <br>
 <div class="box-body">
-  <?php 
-    if(!isset($_SESSION["carrito"])) $_SESSION["carrito"] = [];
-    $granTotal = 0;
-  ?>
+
   <?php
       if(isset($_GET["status"])){
         if($_GET["status"] === "1"){
@@ -318,7 +320,7 @@
       }
     ?>
   <br>
-    <form method="post" action="../modelos/agregarAlCarrito.php">
+    <form method="post" action="../modelos/prueba.php">
       <label for="codigo">Código de barras:</label>
       <input autocomplete="off" autofocus class="form-control" name="codigo" required type="text" id="codigo" placeholder="Escribe el código">
     </form>
@@ -341,10 +343,10 @@
 
         <?php
 
-        require_once ("../modelos/consultaProducto.php");
+        /* require_once ("../modelos/consultaProductoVenta.php"); */
 
-        foreach($query as $row){
-          $granTotal += $row['precio_venta'];
+        foreach($_SESSION["carrito"] as $indice => $row){
+          $granTotal += $row[''];
       ?>
       <tr>
                   <td><?php echo $row['idproducto']?></td>
@@ -357,9 +359,7 @@
                   <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#modalModiCliente" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
                   <td>
-                    <div class="btn-group">  
-                      <button class="btn btn-success btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-check"></i></button>
-                      <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
+                    <a class="btn btn-danger" href="<?php echo "quitarDelCarrito.php?indice=" . $indice?>"><i class="fa fa-trash"></i></a>
                   </td>
                       
                 </tr> 

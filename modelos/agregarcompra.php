@@ -3,6 +3,7 @@
 require_once ("../config/conexion.php");
 
 $prove=$_POST['proveedor'];
+echo $prove;
 $idprod=$_POST['producto'];
 $cant=$_POST['cantidad'];
 $preuni=$_POST['preciouni'];
