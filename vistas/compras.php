@@ -292,6 +292,7 @@
 <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+       <form action="../modelos/agregarcompra.php" method="post">
       <div class="modal-header bg bg-info">
         <img src="../files/dist/img/comlogo.png" heigth="105px" width="400px">
         
@@ -300,43 +301,94 @@
         </button>
       </div>
       <div class="modal-body">
+     
+    
+
+         <h5>Proveedor:</h5>
       <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-edit"></i></span>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Categoria</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+
+                <select class="custom-select"  id="inputGroupSelect01" name="proveedor">
+               
+               <?php
+               require_once ("../config/conexion.php");
+
+                      $result=mysqli_query($conexion,"SELECT idproveedor, casa_comercial FROM proveedor");
+                      while($dato = mysqli_fetch_array($result)){
+                      ?> 
+                            <option value="<?php echo $dato['idproveedor'];?>"> <?php echo $dato['casa_comercial'] ?></option>
+                     <?php
+                }
+                ?>  
                 </select>
             </div>
-            <br>
-            <div class="input-group flex-nowrap">
+
+                <br>
+              <h5>Producto:</h5>
+              <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user"></i></span>
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-edit"></i></span>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Proveedor</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <select class="custom-select"  id="inputGroupSelect01" name="producto">
+               
+               <?php
+               require_once ("../config/conexion.php");
+
+                      $result=mysqli_query($conexion,"SELECT idproducto, nombre FROM producto");
+                      while($dato = mysqli_fetch_array($result)){
+                      ?> 
+                            <option value="<?php echo $dato['idproducto'];?>"> <?php echo $dato['nombre'] ?></option>
+                     <?php
+                }
+                ?>  
                 </select>
             </div>
-            <br>
-            <div class="input-group flex-nowrap">
+
+              <br>
+
+              <div class="input-group flex-nowrap">
+            
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-alt"></i></span>
+                    <span class="input-group-text" id="addon-wrapping">C</span>
                 </div>
-                <input type="date" class="form-control" placeholder="Fecha de Compra" aria-label="nitcliente" aria-describedby="addon-wrapping">
-            </div>
+                <input type="text" class="form-control" placeholder="cantidad a comprar" aria-label="totalCompra" aria-describedby="addon-wrapping" name="cantidad">
+                    
+            </div> 
+
+             <br>
+
+
+              <div class="input-group flex-nowrap">
+            
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping">Q.</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Precio unitario" aria-label="totalCompra" aria-describedby="addon-wrapping" name="preciouni">
+                    
+            </div> 
+
+
+             <br>
+
+                 <div class="input-group flex-nowrap">
+            
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping">#</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Numero de comprobante" aria-label="totalCompra" aria-describedby="addon-wrapping" name="comprobante">
+                    
+            </div> 
+
+          
             <br>
             <div class="input-group flex-nowrap">
             
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping">Q.</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Total Compra" aria-label="totalCompra" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Total Compra" aria-label="totalCompra" aria-describedby="addon-wrapping" name="total">
                     
             </div> 
 
@@ -348,6 +400,7 @@
         <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
         
       </div>
+      </form>
     </div>
   </div>
 </div>
