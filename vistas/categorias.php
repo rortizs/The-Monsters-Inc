@@ -1,3 +1,8 @@
+<?php
+  require_once ("../modelos/consultarCategoria.php");
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +33,7 @@
   <link rel="stylesheet" href="../files/plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" onload="mueveReloj()" class="hold-transition skin-dodgerblue sidebar-mini login-page fixed">
 <div class="wrapper">
@@ -252,7 +258,7 @@
       <hr>     
     </div>
     <div class="box-body">
-     <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
+     <table class="table table-bordered table-hover dt-responsive tablas" width="100%" id="tablaCategoria" action="categoModeloelo.php">
       <thead>
        <tr>
          <th style="width:5px">No.</th>
@@ -263,19 +269,29 @@
        </tr> 
       </thead>
       <tbody style="text-align: center">
+        <?php
+        foreach($Catquery as $row){
+          $est= $row['estado'];
+
+       if($est == 1){
+
+        $nom = 'Activo';
+       }else
+
+        $nom = 'Inactivo';
+      ?>
       <tr>
-                  <td style="text-align: center">1</td>
-                  <td>Categoria1</td>
-                  <td>Categoria1</td>
+                  <td><?php echo $row['idcategoria']?></td>
+                  <td><?php echo $row['nombre']?></td>
+                  <td><?php echo $row['descripcion']?></td>
                   <td>
                   <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
-                  <td>
-                    <div class="btn-group">  
-                      <button class="btn btn-success btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-check"></i></button>
-                      <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
-                  </td>
-                </tr>   
+                  <td><?php echo $nom ?></td>
+                </tr>
+                <?php
+                  }
+                ?>   
       </tbody>
      </table>
     </div>
@@ -287,6 +303,7 @@
 <div class="modal fade" id="modalCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <form action="../modelos/categoModelo.php" method="post">
       <div class="modal-header bg bg-info">
         <img src="../files/dist/img/categologo.png" heigth="105px" width="400px">
         
@@ -298,14 +315,14 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-edit"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Nombre de Categoria" aria-label="CategoriaName" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Nombre de Categoria" name="nomCat" aria-label="CategoriaName" aria-describedby="addon-wrapping">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-comment-dots"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Descripcion de Categoria" aria-label="CategoriaDesc" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Descripcion de Categoria" name="descCat" aria-label="CategoriaDesc" aria-describedby="addon-wrapping">
             </div>
 
       </div>
@@ -314,6 +331,7 @@
         <button type="button" class="btn btn-outline-danger pull-left" data-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -381,5 +399,18 @@
 <script src="../files/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../files/dist/js/demo.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#tablaCategoria').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    }
+  });
+});
+</script>
+
 </body>
 </html>

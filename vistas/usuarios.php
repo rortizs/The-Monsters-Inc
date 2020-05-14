@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="../files/plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" onload="mueveReloj()" class="hold-transition skin-dodgerblue sidebar-mini login-page fixed">
 <div class="wrapper">
@@ -254,7 +255,7 @@
       <hr>     
     </div>
     <div class="box-body">
-     <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
+     <table class="table table-bordered table-hover dt-responsive tablas" width="100%" id="tablaUsuarios">
       <thead>
        <tr>
           <th style="width:5px">No.</th>
@@ -467,5 +468,18 @@
 <script src="../files/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../files/dist/js/demo.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#tablaUsuarios').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    }
+  });
+});
+</script>
+
 </body>
 </html>

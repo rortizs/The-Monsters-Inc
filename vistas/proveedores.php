@@ -1,3 +1,7 @@
+<?php
+  require_once ("../modelos/consultarProveedor.php");
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +32,7 @@
   <link rel="stylesheet" href="../files/plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" onload="mueveReloj()" class="hold-transition skin-dodgerblue sidebar-mini login-page fixed">
 <div class="wrapper">
@@ -253,7 +258,7 @@
       <hr>     
     </div>
     <div class="box-body">
-     <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
+     <table class="table table-bordered table-hover dt-responsive tablas" width="100%" id="tablaProveedor">
       <thead>
       <th style="width:5px">No.</th>
          <th style="text-align: center">Casa Comercial (Farmaceutica)</th>
@@ -265,21 +270,31 @@
        </tr> 
       </thead>
       <tbody style="text-align: center">
+         <?php
+        foreach($Provquery as $row){
+          $est= $row['estado'];
+
+       if($est == 1){
+
+        $nom = 'Activo';
+       }else
+
+        $nom = 'Inactivo';
+      ?>
       <tr>
-                  <td style="text-align: center">1</td>
-                  <td>Bayern</td>
-                  <td>fulano</td>
-                  <td>50808050</td>
+                  <td><?php echo $row['idproveedor']?></td>
+                  <td><?php echo $row['casa_comercial']?></td>
+                  <td><?php echo $row['nombreVendedor']?></td>
+                  <td><?php echo $row['telefono']?></td>
                   <td>
                   <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
-                  <td>
-                    <div class="btn-group">  
-                      <button class="btn btn-success btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-check"></i></button>
-                      <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
-                  </td>
+                  <td><?php echo $nom ?></td>
                       
-                </tr>   
+                </tr>
+                 <?php
+               }
+               ?>
       </tbody>
      </table>
     </div>
@@ -291,6 +306,7 @@
 <div class="modal fade" id="modalProveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <form action="../modelos/proveedorModelo.php" method="post">
       <div class="modal-header bg bg-info">
         <img src="../files/dist/img/provelogo.png" heigth="105px" width="400px">
         
@@ -302,21 +318,21 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-clinic-medical"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Casa Comercial (Farmaceutica)" aria-label="casacomercial" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Casa Comercial (Farmaceutica)" name="Ccomercial" aria-label="casacomercial" aria-describedby="addon-wrapping">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-briefcase-medical"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Nombre Vendedor" aria-label="nitcliente" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Nombre Vendedor" name="vendedor" aria-label="vendedor" aria-describedby="addon-wrapping">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-phone-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Numero de Telefono" aria-label="telefonocliente" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Numero de Telefono" name="telefono" aria-label="telefono" aria-describedby="addon-wrapping">
             </div>
 
       </div>
@@ -325,6 +341,7 @@
         <button type="button" class="btn btn-outline-danger pull-left" data-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -392,5 +409,18 @@
 <script src="../files/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../files/dist/js/demo.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#tablaProveedor').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    }
+  });
+});
+</script>
+
 </body>
 </html>
