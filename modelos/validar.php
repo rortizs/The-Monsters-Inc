@@ -1,28 +1,35 @@
 <?php
-$usuario=$_POST['usuario'];
-$password=$_POST['password'];
+
 
 require_once ("../config/conexion.php");
+$email=$_POST['email'];
+$password=$_POST['password'];
 
 
 
-//consulta si usuario existe
 
-$consulta="SELECT * FROM usuario WHERE username='$usuario' AND pass='$password'";
-//$conexion=mysqli_connect("localhost","root","","dbsistema");
+
+//consulta si existe un usuario con correo ingresado
+
+$consulta="SELECT * FROM usuario WHERE correo='$email'";
+
 $resultado=mysqli_query($conexion,$consulta);
 
 
-$filas=mysqli_num_rows($resultado);
+//obtiene los datos del base de datos segun la consulta
 
-if($filas>0){
-    header('location: ../vistas/menu.php');
-    //echo "Si existe";
+$fila =mysqli_fetch_array($resultado, MYSQLI_BOTH);
+
+$pass = $fila["password"];
+//compara la conraseña ingresada con la encriptada 
+$contra = password_verify($password,$pass);
+
+if ($contra) {
+     header('location: ../vistas/menu.php');
+} else {
+    echo 'La contraseña no es válida.';
 }
-else{
-    header('location: ../vistas/login.php');
-    //echo "no existe";
-}
+
 
 mysqli_free_result($resultado);
 mysqli_close($conexion);

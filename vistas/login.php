@@ -18,13 +18,13 @@
          <img src="../files/dist/img/logo2.png" style="max-width:85%;width:auto;height:auto; text-align:center;">
         </div>
         <div class="txtb">
-          <input type="text" name="usuario">
-          <span data-placeholder="Usuario"></span>
+          <input type="text" name="email">
+          <span data-placeholder="Correo"></span>
         </div>
 
         <div class="txtb">
           <input type="password" name="password">
-          <span data-placeholder="Constaseña"></span>
+          <span data-placeholder="Contraseña"></span>
         </div>
 
         <button type="submit" class="logbtn" value="Iniciar sesión">
