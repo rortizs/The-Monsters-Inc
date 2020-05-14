@@ -1,3 +1,7 @@
+<?php
+  require_once ("../modelos/consultaProducto.php");
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +32,7 @@
   <link rel="stylesheet" href="../files/plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" onload="mueveReloj()" class="hold-transition skin-dodgerblue sidebar-mini login-page fixed">
 <div class="wrapper">
@@ -253,42 +258,46 @@
       <hr>     
     </div>
     <div class="box-body">
-     <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
+     <table class="table table-bordered table-hover dt-responsive tablas" width="100%" id="tablaProducto">
       <thead>
        <tr>
        <th style="width:5px">No.</th>
          <th style="text-align: center">Nombre Producto</th>
          <th style="text-align: center">Descripcion</th>
          <th style="text-align: center">Categoria</th>
-         <th style="text-align: center">Proveedor</th>
          <th style="text-align: center; width:5px">Cantitad</th>
-         <th style="text-align: center">P. Compra</th>
          <th style="text-align: center">P. Venta</th>
-         <th style="text-align: center">Fecha Vencimiento</th>
          <th style="text-align: center; width:10px">Editar</th>
          <th style="text-align: center; width:10px">Estado</th>
        </tr> 
       </thead>
       <tbody style="text-align: center">
+      <?php
+        foreach($queryProducto as $row){
+          $est= $row['estado'];
+
+       if($est == 1){
+
+        $nom = 'Activo';
+       }else
+
+        $nom = 'Inactivo';
+      ?>
       <tr>
-                  <td style="text-align: center">1</td>
-                  <td>Categoria1</td>
-                  <td>CategoriaDescripcion</td>
-                  <td>Categoria</td>
-                  <td>Proveedor</td>
-                  <td>10000</td>
-                  <td>1.00</td>
-                  <td>50000.00</td>
-                  <td>12/12/2020</td>
+                  <td><?php echo $row['idproducto']?></td>
+                  <td><?php echo $row['NomProd']?></td>
+                  <td><?php echo $row['descripcion']?></td>
+                  <td><?php echo $row['NomCat']?></td>
+                  <td><?php echo $row['stock']?></td>
+                  <td><?php echo $row['precio_venta']?></td>
                   <td>
                   <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
-                  <td>
-                    <div class="btn-group">  
-                      <button class="btn btn-success btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-check"></i></button>
-                      <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
-                  </td>
-                </tr>   
+                  <td><?php echo $nom ?></td>
+                </tr>
+                <?php
+               }
+               ?>   
       </tbody>
      </table>
     </div>
@@ -300,6 +309,7 @@
 <div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+    <form action="../modelos/productoModelo.php" method="post">
       <div class="modal-header bg bg-info">
         <img src="../files/dist/img/produlogo.png" heigth="105px" width="400px">
         
@@ -307,65 +317,58 @@
       </div>
       <div class="modal-body">
         <!-- Forms de ingreso de datos -->
+              <div class="input-group flex-nowrap">
+
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping"><i class="fas fa-barcode"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Codigo" name="codProd" aria-label="precioVenta" aria-describedby="addon-wrapping">    
+              </div>
+              <br>
              <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-barcode"></i></span>
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-box-open"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Nombre Producto" aria-label="CategoriaDesc" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Nombre Producto" name="nombreProd" aria-label="nombre producto" aria-describedby="addon-wrapping">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-comment-dots"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Descripcion" aria-label="CategoriaDesc" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Descripcion" name="descProd" aria-label="CategoriaDesc" aria-describedby="addon-wrapping">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-edit"></i></span>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Categoria</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                
+                <select class="custom-select" id="inputGroupSelect01" name="catProd">
+                <?php
+               require_once ("../config/conexion.php");
+
+                      $result=mysqli_query($conexion,"SELECT idcategoria, nombre FROM categoria");
+                      while($dato = mysqli_fetch_array($result)){
+                      ?> 
+                            <option value="<?php echo $dato['idcategoria'];?>"> <?php echo $dato['nombre'] ?></option>
+                     <?php
+                }
+                ?> 
                 </select>
+                
             </div>
-            <br>
-            <div class="input-group flex-nowrap">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user"></i></span>
-                </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Proveedor</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                </select>
-            </div>
+            
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-hashtag"></i></span>
-                    <input type="text" class="form-control" placeholder="Cantidad" aria-label="cantidad" aria-describedby="addon-wrapping">
+                    <input type="text" class="form-control" placeholder="Cantidad" name="stockProd" aria-label="cantidad" aria-describedby="addon-wrapping">
                 </div>
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-alt"></i></span>
-                </div>
-                <input type="date" class="form-control" placeholder="Fecha de Nacimiento" aria-label="nitcliente" aria-describedby="addon-wrapping">
-            </div>
-            <br>
-            <div class="input-group flex-nowrap">
-            
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping">Q.</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Precio Compra" aria-label="precioCompra" aria-describedby="addon-wrapping">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="addon-wrapping">Q.</span>
-                </div>
-                <input type="text" class="form-control" placeholder="Precio Venta" aria-label="precioVenta" aria-describedby="addon-wrapping">    
+                <input type="text" class="form-control" placeholder="Precio Venta" name="preVenta" aria-label="precioVenta" aria-describedby="addon-wrapping">
             </div>
 
       </div>
@@ -374,6 +377,7 @@
         <button type="button" class="btn btn-outline-danger pull-left" data-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -441,5 +445,17 @@
 <script src="../files/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../files/dist/js/demo.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#tablaProducto').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    }
+  });
+});
+</script>
 </body>
 </html>
