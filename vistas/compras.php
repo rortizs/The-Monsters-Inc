@@ -251,36 +251,64 @@
           <i class="fas fa-plus"></i> Nueva Compra
       </button>
       <hr>     
-    </div>
     <div class="box-body">
-     <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
+     <table class="table table-bordered table-hover dt-responsive tablas" width="100%" id="tablaUsuarios">
       <thead>
        <tr>
-         <th style="width:5px">No.</th>
-         <th style="text-align: center">Cod. Proveedor</th>
-         <th style="text-align: center">Nombre Proveedor</th>
-         <th style="text-align: center">Total Compra</th>
+          <th style="width:5px">No.</th>
+         <th style="text-align: center">Proveedor</th>
          <th style="text-align: center">Usuario</th>
-         <th style="text-align: center; width:10px">Editar</th>
+         <th style="text-align: center">Comprobante</th>
+          <th style="text-align: center">Fecha compra</th>
+           <th style="text-align: center">Producto</th>
+           <th style="text-align: center">Cantidad</th>
+           <th style="text-align: center">Precio</th>
+               <th style="text-align: center">Total</th>
+         <th style="text-align: center;width:10px">Editar</th>
          <th style="text-align: center; width:10px">Estado</th>
+         
        </tr> 
       </thead>
       <tbody style="text-align: center">
+        
+        <?php
+
+        require_once ("../modelos/mostrarcompras.php");
+
+        foreach($query as $row){
+
+      
+
+      ?>
       <tr>
-                  <td style="text-align: center">1</td>
-                  <td>0001</td>
-                  <td>Mynor Velasquez</td>
-                  <td>0.00</td>
-                  <td>user</td>
+                  <td><?php echo $row['idcompra']?></td>
+                  <td><?php echo $row['casa_comercial']?></td>
+                  <td><?php echo $row['nombre']?></td>
+                  <td><?php echo $row['num_comprobante']?></td>
+                  <td><?php echo $row['fecha']?></td>
+                  <td><?php echo $row['nombrepro']?></td>
+                  <td><?php echo $row['cantidad']?></td>
+                  <td><?php echo $row['precio']?></td>
+                  <td><?php echo $row['total']?></td>
+                 
                   <td>
-                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
+                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#modalModiCliente" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
                   <td>
                     <div class="btn-group">  
                       <button class="btn btn-success btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-check"></i></button>
                       <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
                   </td>
-                </tr>   
+                      
+                </tr> 
+                <?php
+                }
+                ?>  
+
+
+
+
+
       </tbody>
      </table>
     </div>
@@ -365,7 +393,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping">Q.</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Precio unitario" aria-label="totalCompra" aria-describedby="addon-wrapping" name="preciouni">
+                <input type="text" class="form-control" placeholder="Precio unitario venta" aria-label="totalCompra" aria-describedby="addon-wrapping" name="preciouni">
                     
             </div> 
 

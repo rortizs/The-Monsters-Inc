@@ -9,7 +9,9 @@ $preuni=$_POST['preciouni'];
 $compro=$_POST['comprobante'];
 $tot=$_POST['total'];
 
- $date = date('Y-m-d H:i:s');
+
+ 
+ $date = date('d/m/Y H:i:s') ;
 
 
 
@@ -34,16 +36,24 @@ $tot=$_POST['total'];
 				$con= "INSERT INTO detalle_compra(idcompra,idproducto,cantidad,precio) 
                                                  VALUES ('$id','$idprod','$cant','$preuni')";
 
-                    mysqli_query($conexion, $con);
+                  mysqli_query($conexion, $con);
+                  
+
+                  $cone ="UPDATE producto SET stock = stock + '$cant',precio_venta= (precio_venta + $preuni)/2 WHERE idproducto = '$idprod'";
+
+                  	mysqli_query($conexion, $cone);
+           				 
+           				 header('location: ../vistas/compras.php');
+
                  //echo "creado exitosamente";
-        }else {
+       				 }else {
         			 echo '<script language="javascript">alert("Error de conexion");</script>';
                      //echo "Error";
 
                }
 
 
-
+		
 
 
 

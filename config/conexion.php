@@ -18,7 +18,7 @@ if(mysqli_connect_errno()){
 
 }
 else{
-    echo "Si conecta la base de datos";
+   // echo "Si conecta la base de datos";
 }
 
 ?>
