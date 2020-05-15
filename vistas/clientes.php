@@ -1,3 +1,8 @@
+<?php
+  require_once ("../modelos/consultaCliente.php");
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +31,12 @@
   <link rel="stylesheet" href="../files/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="../files/plugins/summernote/summernote-bs4.css">
+  <!-- sweetalert2 -->
+  <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"/>
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -241,7 +252,6 @@
     </div>
 
 
-
  
 <!-- Codigo tabla y boton para modal -->
 <section class="content">
@@ -253,7 +263,7 @@
       <hr>     
     </div>
     <div class="box-body">
-     <table class="table table-bordered table-hover dt-responsive tablas" width="100%">
+     <table class="table table-bordered table-hover dt-responsive tablas" width="100%" id="tablaCliente" action="ClienteModelo.php">
       <thead>
        <tr>
          <th style="width:5px">No.</th>
@@ -261,20 +271,23 @@
          <th style="text-align: center">Nit</th>
          <th style="text-align: center">Direccion</th>
          <th style="text-align: center">Telefono</th>
-         <th style="text-align: center;width:10px">Editar</th>
+         <th style="text-align: center;width:10px">Editar</th> 
          <th style="text-align: center; width:10px">Estado</th>
          
        </tr> 
       </thead>
       <tbody style="text-align: center">
+      <?php
+        foreach($query as $row){
+      ?>
       <tr>
-                  <td style="text-align: center">1</td>
-                  <td>Juan</td>
-                  <td>100101-1</td>
-                  <td>guatemala</td>
-                  <td>50808050</td>
+                  <td><?php echo $row['idcliente']?></td>
+                  <td><?php echo $row['nombre']?></td>
+                  <td><?php echo $row['nit']?></td>
+                  <td><?php echo $row['direccion']?></td>
+                  <td><?php echo $row['telefono']?></td>
                   <td>
-                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
+                  <button class="btn btn-outline-warning btnEditarProveedor" data-toggle="modal" data-target="#modalModiCliente" idProveedor="1"><i class="fas fa-pencil-alt"></i></button>
                   </td>
                   <td>
                     <div class="btn-group">  
@@ -282,7 +295,10 @@
                       <button class="btn btn-danger btnEliminarProveedor" idProveedor="1"><i class="fa fa-times"></i></button></div>  
                   </td>
                       
-                </tr>   
+                </tr> 
+                <?php
+                }
+                ?>  
       </tbody>
      </table>
     </div>
@@ -291,11 +307,13 @@
 
 
 <!-- Modal Agregar Cliente -->
+
 <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+    <form action="../modelos/ClienteModelo.php" method="post">
       <div class="modal-header bg bg-info">
-        <img src="../files/dist/img/clienlogo.png" heigth="105px" width="400px">
+        <img src="../files/dist/img/clientelogo.png" heigth="105px" width="400px">
         
         
       </div>
@@ -305,28 +323,28 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Nombre del cliente" aria-label="nombrecliente" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Nombre del cliente" aria-label="nombre" aria-describedby="addon-wrapping" name="nomcliente">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-address-card"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Numero de NIT" aria-label="nitcliente" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Numero de NIT" aria-label="nit" aria-describedby="addon-wrapping" name="nitcliente">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Direccion" aria-label="direccioncliente" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Direccion" aria-label="direccion" aria-describedby="addon-wrapping" name="dircliente">
             </div>
             <br>
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><i class="fas fa-phone-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Numero de Telefono" aria-label="telefonocliente" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" placeholder="Numero de Telefono" aria-label="telefono" aria-describedby="addon-wrapping" name="telcliente">
             </div>
 
       </div>
@@ -335,6 +353,61 @@
         <button type="button" class="btn btn-outline-danger pull-left" data-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
       </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Modificar Cliente -->
+
+<div class="modal fade" id="modalModiCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form action="../modelos/ClienteModelo.php" method="post">
+      <div class="modal-header bg bg-info">
+        <img src="../files/dist/img/editclientelogo.png" heigth="105px" width="400px">
+        
+        
+      </div>
+      <div class="modal-body">
+        <!-- Forms de ingreso de datos -->
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Nombre del cliente" aria-label="nombrecliente" aria-describedby="addon-wrapping" name="nomcliente">
+            </div>
+            <br>
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-address-card"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Numero de NIT" aria-label="nitcliente" aria-describedby="addon-wrapping" name="nitcliente">
+            </div>
+            <br>
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-map-marker-alt"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Direccion" aria-label="direccioncliente" aria-describedby="addon-wrapping" name="dircliente">
+            </div>
+            <br>
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-phone-alt"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Numero de Telefono" aria-label="telefonocliente" aria-describedby="addon-wrapping" name="telcliente">
+            </div>
+
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-outline-danger pull-left" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
+      </div>
+      </form>
     </div>
   </div>
 </div>
@@ -402,5 +475,21 @@
 <script src="../files/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../files/dist/js/demo.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#tablaCliente').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    }
+  });
+});
+</script>
+
+
+
 </body>
 </html>
+

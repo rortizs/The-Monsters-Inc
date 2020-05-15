@@ -1,3 +1,8 @@
+<?php
+  require_once ("../modelos/contarDatos.php");
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   <title>SANATORIO SERVIMEDI | SISTEMA VENTAS</title>
+  <link rel="icon" type="image/png" href="../files/dist/img/logo.png" style="max-width:100%;width:100px;height:auto; text-align:left;" />
   <link rel="icon" type="image/png" href="../files/dist/img/logo.png" style="max-width:100%;width:100px;height:auto; text-align:left;" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -252,7 +258,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+              <h3><?php echo $fila2['totalProd']?></h3>
 
                 <p>Productos</p>
               </div>
@@ -267,7 +273,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53</h3>
+                <h3><?php echo $fila['totalCli']?></h3>
 
                 <p>Clientes</p>
               </div>
@@ -282,7 +288,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+              <h3><?php echo $fila1['totalProv']?></h3>
 
                 <p>Proveedores</p>
               </div>
@@ -297,7 +303,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+              <h3><?php echo $fila3['totalCat']?></h3>
 
                 <p>Categorias</p>
               </div>
