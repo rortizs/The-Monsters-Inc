@@ -19,7 +19,7 @@
         </div>
         <div class="txtb">
           <input type="text" name="email">
-          <span data-placeholder="Correo"></span>
+          <span data-placeholder="Correos"></span>
         </div>
 
         <div class="txtb">
