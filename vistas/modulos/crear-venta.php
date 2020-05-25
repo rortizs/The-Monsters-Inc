@@ -127,7 +127,7 @@
                         
                     </select>
 
-                    <button type="button" style="margin-left: 5px; height: 34px" class="btn btn-dodgerblue btn-xs" data-toggle="modal" data-target="#modalAgregarCliente" data-dismiss="modal"><i class="fas fa-plus"></i> Nuevo cliente</button>
+                    <button type="button" style="margin-left: 5px; height: 34px" class="btn btn-dodgerblue btn-xs" data-toggle="modal" data-target="#modalAgregarCliente" data-dismiss="modal"><i class="fas fa-plus"></i> Nuevo cliente</button> 
 
                   </div>
 
@@ -316,7 +316,7 @@ MODAL AGREGAR CLIENTE
 ======================================-->
 
 <div id="modalAgregarCliente" class="modal fade" role="dialog">
-  
+
   <div class="modal-dialog">
 
     <div class="modal-content">
@@ -342,12 +342,12 @@ MODAL AGREGAR CLIENTE
           <div class="box-body">
 
             <!-- ENTRADA PARA EL NOMBRE -->
-            
+
             <div class="form-group">
-              
+
               <div class="input-group">
-              
-                <span class="input-group-addon" ><i class="fa fa-user" style="width: 10px"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-user" style="width: 10px"></i></span>
 
                 <input type="text" class="form-control input-lg" name="nuevoCliente" placeholder="Ingresar nombre" required>
 
@@ -355,62 +355,64 @@ MODAL AGREGAR CLIENTE
 
             </div>
 
-            <!-- ENTRADA PARA EL DOCUMENTO ID -->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-key" style="width: 10px"></i></span> 
+            <!-- ENTRADA PARA EL NIT -->
 
-                <input type="text" class="form-control input-lg" name="nuevoDocumentoId" placeholder="Ingresar NIT" maxlength="10" required>
- 
+            <div class="form-group">
+
+              <div class="input-group has-feedback">
+
+                <span class="input-group-addon"><i class="fa fa-key" style="width: 10px"></i></span>
+
+                <input type="text" class="form-control input-lg" id="nit" name="nuevoNitId" placeholder="Ingresar NIT" maxlength="9" pattern="[0-9]{6,}[-][k|K|0-9]$" title="Formato no válido. Utiliza guión" required>
+
+                <span class="glyphicon form-control-feedback"></span>
+
               </div>
 
             </div>
 
             <!-- ENTRADA PARA EL EMAIL -->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-envelope" style="width: 10px"></i></span> 
 
-                <input type="email" class="form-control input-lg" name="nuevoEmail" value="c_f@correo.com" placeholder="Ingresar email" required>
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-at" style="width: 10px"></i></span>
+
+                <input type="email" class="form-control input-lg" name="nuevoEmail" value="n_a@correo.com" placeholder="Ingresar email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Todas las letras deben ser minúsculas" required>
 
               </div>
 
             </div>
 
             <!-- ENTRADA PARA EL TELÉFONO -->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-phone" style="width: 10px"></i></span> 
 
-                <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar teléfono" data-inputmask="'mask':'9999-9999'" data-mask value="12345678" required>
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-phone" style="width: 10px"></i></span>
+
+                <input type="text" class="form-control input-lg" name="nuevoTelefono" value="00000000" pattern="[0-9 ]{9}" title="8 caracteres" data-inputmask="'mask': '9999 9999'" data-mask required>
 
               </div>
 
             </div>
 
             <!-- ENTRADA PARA LA DIRECCIÓN -->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-map-marker" style="width: 10px"></i></span> 
 
-                <input type="text" class="form-control input-lg" name="nuevaDireccion" placeholder="Ingresar dirección" required>
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-map-marker" style="width: 10px"></i></span>
+
+                <input type="text" class="form-control input-lg" name="nuevaDireccion" value="Ciudad" placeholder="Ingresar dirección" required>
 
               </div>
 
             </div>
-  
+
           </div>
 
         </div>
@@ -431,8 +433,8 @@ MODAL AGREGAR CLIENTE
 
       <?php
 
-        $crearCliente = new ControladorClientes();
-        $crearCliente -> ctrCrearCliente();
+      $crearCliente = new ControladorClientes();
+      $crearCliente->ctrCrearCliente();
 
       ?>
 
