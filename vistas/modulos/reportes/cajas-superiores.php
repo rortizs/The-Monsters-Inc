@@ -14,8 +14,7 @@ $totalProductos = count($productos);
 $proveedores = ControladorProveedores::ctrMostrarProveedores($item, $valor);
 $totalProveedores = count($proveedores);
 
-$contactos = ControladorContactos::ctrMostrarContactos($item, $valor);
-$totalContactos = count($contactos);
+
 
 ?>
 
@@ -67,7 +66,7 @@ $totalContactos = count($contactos);
 
 <div class="col-lg-4 col-xs-12">
 
-  <div class="small-box bg-yellow">
+  <div class="small-box bg-green">
   
     <div class="inner">
 
