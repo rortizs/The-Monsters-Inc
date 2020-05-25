@@ -133,7 +133,7 @@ class ControladorVentas{
 					  }).then(function(result){
 								if (result.value) {
 
-								window.location = "ventas";
+								window.location = "facturacion";
 
 								}
 							})
@@ -308,7 +308,7 @@ class ControladorVentas{
 					  }).then((result) => {
 								if (result.value) {
 
-								window.location = "ventas";
+								window.location = "facturacion";
 
 								}
 							})
@@ -453,7 +453,7 @@ class ControladorVentas{
 					  }).then(function(result){
 								if (result.value) {
 
-								window.location = "ventas";
+								window.location = "facturacion";
 
 								}
 							})
