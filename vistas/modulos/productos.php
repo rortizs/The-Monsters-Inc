@@ -173,7 +173,7 @@ MODAL AGREGAR PRODUCTO
 
                   foreach ($proveedor as $key => $value) {
                     
-                    echo '<option value="'.$value["id"].'">'.$value["nombre"].'</option>';
+                    echo '<option value="'.$value["id"].'">'.$value["empresa"].'</option>';
                   }
 
                   ?>
