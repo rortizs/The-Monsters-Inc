@@ -165,7 +165,7 @@
 
                         <tr>
                           <th>Descuento</th>
-                          <th>Total</th>      
+                          <th>IVA</th>     
                         </tr>
 
                       </thead>
@@ -174,7 +174,7 @@
                       
                         <tr>
                           
-                          <td style="width: 40%">
+                          <td style="width: 50%">
                             
                             <div class="input-group">
                            
@@ -190,7 +190,7 @@
 
                           </td>
 
-                           <td style="width: 60%">
+                          <td style="width: 50%">
                             
                             <div class="input-group">
                            
@@ -202,6 +202,57 @@
                               
                         
                             </div>
+
+                          </td>
+
+                        </tr>
+
+                      </tbody>
+
+                    </table>
+
+                    <table class="table">
+
+                      <thead>
+
+                        <tr>
+                          <th>Subtotal</th>
+                          <th>Total</th>     
+                        </tr>
+
+                      </thead>
+
+                      <tbody>
+
+                        <tr>
+
+                          <td style="width: 50%">
+                            
+                            <div class="input-group">
+                           
+                              <span class="input-group-addon"><b>Q</b></span>
+
+                              <input type="text" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="0" readonly required>
+
+                              <input type="hidden" name="totalVenta" id="totalVenta">
+                              
+                        
+                            </div>
+
+                          </td>
+
+                          <td style="width: 50%">
+                            
+                            <div class="input-group">
+                           
+                              <span class="input-group-addon"><b>Q</b></span>
+
+                              <input type="text" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="0" readonly required>
+
+                              <input type="hidden" name="totalVenta" id="totalVenta">
+                              
+                        
+                            </div> 
 
                           </td>
 
