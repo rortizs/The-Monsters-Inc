@@ -44,7 +44,7 @@ class ControladorProveedores{
 						  }).then(function(result){
 									if (result.value) {
 
-									window.location = "";
+									window.location = "proveedores";
 
 									}
 								})

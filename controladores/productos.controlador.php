@@ -452,7 +452,7 @@ class ControladorProductos{
 			 			<td style='border:1px solid #eee;'>".$item["codigo"]."</td>
 			 			<td style='border:1px solid #eee;'>".$item["descripcion"]."</td>			 			
 			 			<td style='border:1px solid #eee;'>".$categoria["categoria"]."</td>
-			 			<td style='border:1px solid #eee;'>".$proveedor["nombre"]."</td>
+			 			<td style='border:1px solid #eee;'>".$proveedor["empresa"]."</td>
 			 			<td style='border:1px solid #eee; text-align: center'>".$item["stock"]."</td>	
 			 			<td style='border:1px solid #eee; text-align: center'>Q ".number_format($item["precio_compra"],2)."</td>	
 			 			<td style='border:1px solid #eee; text-align: center'>Q ".number_format($item["precio_venta"],2)."</td>
