@@ -110,11 +110,11 @@
 
                   <td>'.$value["metodo_pago"].'</td>
 
-                  <td>Q '.number_format($value["subtotal"],2).'</td>
+                  <td>GTQ '.number_format($value["subtotal"],2).'</td>
 
-                  <td>Q '.number_format(abs($value["descuento"]),2).'</td>
+                  <td>GTQ '.number_format(abs($value["descuento"]),2).'</td>
 
-                  <td>Q '.number_format($value["total"],2).'</td>
+                  <td>GTQ '.number_format($value["total"],2).'</td>
 
                   <td>'.$value["fecha"].'</td>
 

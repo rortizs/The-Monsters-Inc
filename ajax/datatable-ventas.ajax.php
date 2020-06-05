@@ -64,7 +64,7 @@ class TablaProductosVentas{
 		  		"'.$imagen.'",
 			    "'.$productos[$i]["codigo"].'",
 			    "'.$productos[$i]["descripcion"].'",
-			    "Q '.number_format($productos[$i]["precio_venta"],2).'",
+			    "GTQ '.number_format($productos[$i]["precio_venta"],2).'",
 			    "'.$stock.'",
 			    "'.$botones.'"
 			],';
