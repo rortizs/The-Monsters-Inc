@@ -483,10 +483,14 @@ function agregarDescuento(){
 
 	var descuento = $("#nuevoDescuentoVenta").val();
 	var precioTotal = $("#nuevoTotalVenta").attr("total");
-
 	var precioDescuento = Number(- precioTotal * descuento/100);
-
 	var totalConDescuento = Number(precioDescuento) + Number(precioTotal);
+	var iva = Number(totalConDescuento * 0.12);
+	var totSinIva = Number(totalConDescuento - iva);
+	
+	$("#totalSinIVA").val(totSinIva);
+
+	$("#nuevoIVAVenta").val(iva);
 	
 	$("#nuevoTotalVenta").val(totalConDescuento);
 
@@ -495,7 +499,6 @@ function agregarDescuento(){
 	$("#nuevoPrecioDescuento").val(precioDescuento);
 
 	$("#nuevoPrecioSubtotal").val(precioTotal);
-
 }
 
 /*=============================================
@@ -512,7 +515,13 @@ $("#nuevoDescuentoVenta").change(function(){
 FORMATO AL PRECIO FINAL
 =============================================*/
 
+
 $("#nuevoTotalVenta").number(true, 2);
+
+$("#nuevoIVAVenta").number(true, 2);
+
+$("#totalSinIVA").number(true, 2);
+
 
 /*=============================================
 SELECCIONAR MÉTODO DE PAGO

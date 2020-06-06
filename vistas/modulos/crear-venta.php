@@ -165,7 +165,7 @@
 
                         <tr>
                           <th>Descuento</th>
-                          <th>IVA</th>     
+                          <th>Total</th>     
                         </tr>
 
                       </thead>
@@ -205,26 +205,10 @@
 
                           </td>
 
-                        </tr>
-
-                      </tbody>
-
-                    </table>
-
-                    <table class="table">
-
-                      <thead>
-
                         <tr>
-                          <th>Subtotal</th>
-                          <th>Total</th>     
+                          <th>IVA</th>
+                          <th>Total sin IVA</th>     
                         </tr>
-
-                      </thead>
-
-                      <tbody>
-
-                        <tr>
 
                           <td style="width: 50%">
                             
@@ -232,10 +216,7 @@
                            
                               <span class="input-group-addon"><b>Q</b></span>
 
-                              <input type="text" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="0" readonly required>
-
-                              <input type="hidden" name="totalVenta" id="totalVenta">
-                              
+                              <input type="text" class="form-control input-lg" id="nuevoIVAVenta" name="nuevoIVAVenta" total2="" placeholder="0" readonly required>                              
                         
                             </div>
 
@@ -247,10 +228,7 @@
                            
                               <span class="input-group-addon"><b>Q</b></span>
 
-                              <input type="text" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="0" readonly required>
-
-                              <input type="hidden" name="totalVenta" id="totalVenta">
-                              
+                              <input type="text" class="form-control input-lg" id="totalSinIVA" name="totalSinIVA" total="" placeholder="0" readonly required>                         
                         
                             </div> 
 
