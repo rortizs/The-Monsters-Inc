@@ -172,6 +172,7 @@ session_start();
          $_GET["ruta"] == "editar-venta" ||
          $_GET["ruta"] == "reportes" ||
          $_GET["ruta"] == "proveedores" ||
+         $_GET["ruta"] == "Pagos" ||
          $_GET["ruta"] == "salir"){
 
         include "modulos/".$_GET["ruta"].".php";
@@ -200,7 +201,7 @@ session_start();
 
     include "modulos/login.php";
 
-  }
+  } 
 
   ?>
 

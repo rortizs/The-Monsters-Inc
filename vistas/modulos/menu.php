@@ -107,7 +107,17 @@
 
 			</li>
 
-			
+			<li>
+
+				<a href="Pagos">
+							
+					
+				<i class="fas fa-shopping-cart"></i>
+					<span>Pagos</span>
+
+				</a>
+
+			</li>
 
 			<?php
 
